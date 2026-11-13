@@ -1,0 +1,202 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+import { process } from '../data/site';
+---
+
+<section class="section process" id="atendimento">
+  <div class="container">
+    <div class="process__head">
+      <div>
+        <p class="eyebrow reveal">Atendimento</p>
+        <h2 class="display h-section process__title reveal" style="--delay: 80ms">
+          {process.title[0]} <em>{process.title[1]}</em>
+        </h2>
+      </div>
+      <p class="lead process__intro reveal" style="--delay: 140ms">{process.intro}</p>
+    </div>
+
+    <ol class="steps">
+      {process.steps.map((step, i) => (
+        <li class="step reveal" style={`--delay: ${i * 90}ms`}>
+          <span class="step__dot" aria-hidden="true"></span>
+          <span class="step__num">Etapa {i + 1}</span>
+          <h3 class="step__name">{step.name}</h3>
+          <p class="step__text">{step.text}</p>
+        </li>
+      ))}
+    </ol>
+
+    <div class="process__foot">
+      <ul class="modes reveal">
+        {process.modes.map((mode) => (
+          <li>
+            <strong>{mode.name}</strong>
+            <span>{mode.text}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="process__closing reveal" style="--delay: 100ms">
+        <p class="display">
+          {process.closing[0]} <em>{process.closing[1]}</em>
+        </p>
+        <WhatsAppButton label="Agendar minha avaliação" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .process__head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 7vw, 7rem);
+    align-items: end;
+  }
+
+  .process__title {
+    margin-top: 1.25rem;
+  }
+
+  .process__title em {
+    display: block;
+    color: var(--sage-deep);
+  }
+
+  .process__intro {
+    max-width: 30rem;
+  }
+
+  /* Trilha pontilhada: os pontos do monograma viram a linha do passo a passo */
+  .steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.5rem;
+    margin-top: clamp(3rem, 6vw, 5.5rem);
+    padding-top: 2.75rem;
+  }
+
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: radial-gradient(circle, var(--gold) 1.5px, transparent 1.6px) 0 0 / 14px 3px repeat-x;
+  }
+
+  .step {
+    position: relative;
+  }
+
+  .step__dot {
+    position: absolute;
+    top: calc(-2.75rem - 1px);
+    left: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1px solid var(--gold);
+    box-shadow: inset 0 0 0 4px var(--paper), inset 0 0 0 8px var(--gold);
+  }
+
+  .step__num {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-ink);
+  }
+
+  .step__name {
+    margin-top: 0.6rem;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  .step__text {
+    margin-top: 0.75rem;
+    color: var(--forest-soft);
+  }
+
+  .process__foot {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(2rem, 7vw, 7rem);
+    align-items: start;
+    margin-top: clamp(3.5rem, 7vw, 6.5rem);
+    padding-top: clamp(2.5rem, 5vw, 4rem);
+    border-top: 1px solid var(--line);
+  }
+
+  .modes {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .modes li {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .modes strong {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .modes span {
+    color: var(--forest-soft);
+  }
+
+  .process__closing p {
+    font-size: var(--text-2xl);
+    max-width: 18ch;
+    margin-bottom: 2rem;
+  }
+
+  .process__closing em {
+    color: var(--sage-deep);
+  }
+
+  @media (max-width: 960px) {
+    .steps {
+      grid-template-columns: 1fr;
+      gap: 2.25rem;
+      padding-top: 0;
+      padding-left: 2.5rem;
+    }
+
+    .steps::before {
+      top: 0;
+      bottom: 0;
+      left: 6px;
+      right: auto;
+      width: 3px;
+      height: auto;
+      background: radial-gradient(circle, var(--gold) 1.5px, transparent 1.6px) 0 0 / 3px 14px repeat-y;
+    }
+
+    .step__dot {
+      top: 0.15rem;
+      left: -2.5rem;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .process__head,
+    .process__foot {
+      grid-template-columns: 1fr;
+    }
+
+    .process__head {
+      align-items: start;
+    }
+  }
+</style>

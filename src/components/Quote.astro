@@ -1,0 +1,52 @@
+---
+import Spine from './Spine.astro';
+import { quote, site } from '../data/site';
+---
+
+<section class="quote on-dark" aria-label="Princípio de trabalho">
+  <div class="container quote__inner">
+    <Spine class="quote__spine reveal" />
+    <blockquote class="display quote__text reveal" style="--delay: 100ms">
+      <p>{quote.lines[0]}</p>
+      <p><em>{quote.lines[1]}</em></p>
+    </blockquote>
+    <p class="quote__by reveal" style="--delay: 180ms">{site.name}</p>
+  </div>
+</section>
+
+<style>
+  .quote {
+    background: var(--sage-deep);
+    color: var(--white);
+    padding-block: clamp(5rem, 3rem + 8vw, 10rem);
+  }
+
+  .quote__inner {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .quote :global(.quote__spine) {
+    color: var(--gold-light);
+  }
+
+  .quote__text {
+    margin-top: 2.25rem;
+    max-width: 22ch;
+    font-size: var(--text-2xl);
+    line-height: 1.12;
+  }
+
+  .quote__text em {
+    color: var(--gold-light);
+  }
+
+  .quote__by {
+    margin-top: 2.25rem;
+    font-size: var(--text-xs);
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+</style>

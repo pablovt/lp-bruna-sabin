@@ -1,0 +1,33 @@
+---
+/**
+ * Arco pontilhado inspirado nos pontos do monograma (a coluna).
+ * Usado como divisor e ornamento.
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const count = 11;
+const dots = Array.from({ length: count }, (_, i) => {
+  const t = i / (count - 1);
+  // arco suave, com pontos maiores no centro
+  const x = 6 + t * 188;
+  const y = 22 - Math.sin(t * Math.PI) * 14;
+  const r = 1.1 + Math.sin(t * Math.PI) * 1.5;
+  return { x: +x.toFixed(2), y: +y.toFixed(2), r: +r.toFixed(2) };
+});
+---
+
+<svg class:list={['spine', className]} viewBox="0 0 200 28" aria-hidden="true">
+  {dots.map((d) => <circle cx={d.x} cy={d.y} r={d.r} fill="currentColor" />)}
+</svg>
+
+<style>
+  .spine {
+    width: 9rem;
+    height: auto;
+    color: var(--gold);
+  }
+</style>

@@ -1,0 +1,23 @@
+---
+import Arrow from './Arrow.astro';
+import { whatsappLink } from '../data/site';
+
+interface Props {
+  label?: string;
+  variant?: 'primary' | 'light';
+  small?: boolean;
+  class?: string;
+}
+
+const { label = 'Agendar pelo WhatsApp', variant = 'primary', small = false, class: className } = Astro.props;
+---
+
+<a
+  class:list={['btn', `btn--${variant}`, small && 'btn--small', className]}
+  href={whatsappLink()}
+  target="_blank"
+  rel="noopener"
+>
+  {label}
+  <Arrow />
+</a>

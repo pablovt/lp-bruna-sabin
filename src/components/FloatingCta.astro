@@ -1,0 +1,76 @@
+---
+/** Botão fixo de agendamento no celular. Aparece depois que o topo sai da tela. */
+import WhatsAppButton from './WhatsAppButton.astro';
+---
+
+<div class="floating" data-floating>
+  <WhatsAppButton label="Agendar pelo WhatsApp" />
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-floating]');
+  const hero = document.querySelector('#topo');
+  const contact = document.querySelector('#contato');
+
+  if (bar && hero && 'IntersectionObserver' in window) {
+    let pastHero = false;
+    let atContact = false;
+    const update = () => bar.classList.toggle('is-visible', pastHero && !atContact);
+
+    new IntersectionObserver(([e]) => {
+      pastHero = !e.isIntersecting;
+      update();
+    }).observe(hero);
+
+    if (contact) {
+      new IntersectionObserver(
+        ([e]) => {
+          atContact = e.isIntersecting;
+          update();
+        },
+        { threshold: 0.25 },
+      ).observe(contact);
+    }
+  }
+</script>
+
+<style>
+  .floating {
+    display: none;
+  }
+
+  @media (max-width: 720px) {
+    .floating {
+      display: block;
+      position: fixed;
+      left: 1rem;
+      right: 1rem;
+      bottom: max(1rem, env(safe-area-inset-bottom));
+      z-index: 40;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(1rem);
+      transition:
+        opacity 0.3s var(--ease),
+        transform 0.3s var(--ease),
+        visibility 0.3s;
+    }
+
+    .floating.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+
+    .floating :global(.btn) {
+      width: 100%;
+      box-shadow: 0 10px 30px -12px rgba(43, 56, 45, 0.6);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .floating {
+      transition: none;
+    }
+  }
+</style>

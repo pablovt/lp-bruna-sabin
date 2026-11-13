@@ -1,0 +1,179 @@
+---
+import { Image } from 'astro:assets';
+import monograma from '../assets/monograma.png';
+import WhatsAppButton from './WhatsAppButton.astro';
+import Placeholder from './Placeholder.astro';
+import { site, hero } from '../data/site';
+---
+
+<section class="hero" id="topo">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <p class="eyebrow reveal">{site.role} · {site.crefito}</p>
+      <h1 class="display hero__title reveal" style="--delay: 80ms">
+        {hero.headline[0]} <em>{hero.headline[1]}</em>
+      </h1>
+      <p class="lead hero__lead reveal" style="--delay: 160ms">{hero.lead}</p>
+
+      <div class="hero__actions reveal" style="--delay: 240ms">
+        <WhatsAppButton />
+        <a class="text-link" href="#atendimento">Como funciona o atendimento</a>
+      </div>
+
+      <ul class="hero__facts reveal" style="--delay: 320ms">
+        {hero.facts.map((fact) => <li>{fact}</li>)}
+      </ul>
+    </div>
+
+    <!-- TODO: trocar pelo retrato da Bruna (usar <Image> dentro de .hero__arch) -->
+    <figure class="hero__figure reveal" style="--delay: 200ms">
+      <div class="hero__arch">
+        <Image
+          class="hero__mark"
+          src={monograma}
+          alt=""
+          widths={[180, 360]}
+          sizes="180px"
+          loading="eager"
+        />
+        <span class="hero__note"><Placeholder label="Foto em edição" /></span>
+      </div>
+      <svg class="hero__dots" viewBox="0 0 60 220" aria-hidden="true">
+        <circle cx="8" cy="8" r="3.2"></circle>
+        <circle cx="22" cy="30" r="3.6"></circle>
+        <circle cx="34" cy="55" r="3.9"></circle>
+        <circle cx="43" cy="82" r="4.1"></circle>
+        <circle cx="48" cy="110" r="4.1"></circle>
+        <circle cx="47" cy="138" r="3.9"></circle>
+        <circle cx="41" cy="165" r="3.6"></circle>
+        <circle cx="30" cy="190" r="3.2"></circle>
+        <circle cx="15" cy="211" r="2.8"></circle>
+      </svg>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(2.5rem, 1rem + 5vw, 5.5rem) clamp(4rem, 2rem + 6vw, 7.5rem);
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    align-items: center;
+    gap: clamp(2.5rem, 6vw, 6rem);
+  }
+
+  .hero__title {
+    margin-top: 1.5rem;
+    font-size: var(--text-3xl);
+    max-width: 13ch;
+  }
+
+  .hero__title em {
+    display: block;
+    color: var(--sage-deep);
+  }
+
+  .hero__lead {
+    margin-top: 1.75rem;
+    max-width: 34rem;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.75rem;
+    margin-top: 2.25rem;
+  }
+
+  .hero__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 2rem;
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+    font-size: var(--text-sm);
+    color: var(--forest-soft);
+  }
+
+  .hero__facts li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .hero__facts li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .hero__figure {
+    position: relative;
+    justify-self: end;
+    width: 100%;
+    max-width: 24rem;
+  }
+
+  .hero__arch {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 5.2;
+    border-radius: 999px 999px 0 0;
+    background: var(--sage);
+    overflow: hidden;
+  }
+
+  .hero__arch :global(img.hero__mark) {
+    width: 42%;
+    height: auto;
+  }
+
+  .hero__note {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    translate: -50% 0;
+    color: var(--white);
+    white-space: nowrap;
+  }
+
+  .hero__dots {
+    position: absolute;
+    right: -2.4rem;
+    bottom: 8%;
+    width: 2.6rem;
+    fill: var(--gold);
+  }
+
+  @media (max-width: 860px) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__figure {
+      justify-self: start;
+      max-width: 17rem;
+    }
+
+    .hero__arch {
+      aspect-ratio: 1 / 1.1;
+    }
+
+    .hero__dots {
+      right: -2.2rem;
+      width: 2rem;
+    }
+
+    .hero__title {
+      max-width: none;
+    }
+  }
+</style>

@@ -1,0 +1,93 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo-completo.png';
+import { site, contact, nav } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer on-dark">
+  <div class="container footer__inner">
+    <Image
+      class="footer__logo"
+      src={logo}
+      alt={`${site.name}, ${site.role}. ${site.crefito}`}
+      widths={[220, 440]}
+      sizes="220px"
+      loading="lazy"
+    />
+
+    <nav aria-label="Rodapé">
+      <ul class="footer__nav">
+        {nav.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+        <li>
+          <a href={contact.instagramUrl} target="_blank" rel="noopener">Instagram</a>
+        </li>
+      </ul>
+    </nav>
+
+    <p class="footer__legal">
+      © {year} {site.name} · {site.role} · {site.crefito}
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--forest);
+    color: var(--white);
+    padding-block: 3.5rem 2.5rem;
+    border-top: 1px solid var(--line-on-dark);
+  }
+
+  .footer__inner {
+    display: grid;
+    justify-items: center;
+    gap: 2.25rem;
+    text-align: center;
+  }
+
+  .footer :global(img.footer__logo) {
+    width: 13.75rem;
+    height: auto;
+  }
+
+  .footer__nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem 1.75rem;
+  }
+
+  .footer__nav a {
+    display: inline-block;
+    padding-block: 0.6rem;
+    font-size: var(--text-sm);
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+  }
+
+  .footer__nav a:hover {
+    opacity: 1;
+    text-decoration: underline;
+    text-decoration-color: var(--gold);
+    text-underline-offset: 0.3em;
+  }
+
+  .footer__legal {
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 720px) {
+    .footer {
+      padding-bottom: 6.5rem; /* espaço para o botão flutuante */
+    }
+  }
+</style>

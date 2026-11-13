@@ -1,0 +1,28 @@
+---
+/** Etiqueta de conteúdo provisório. Some quando showDraftMarks = false em site.ts. */
+import { showDraftMarks } from '../data/site';
+
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+{showDraftMarks && <span class="draft">{label}</span>}
+
+<style>
+  .draft {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border: 1px dashed currentColor;
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+</style>

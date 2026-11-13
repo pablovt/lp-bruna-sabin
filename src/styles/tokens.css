@@ -1,0 +1,39 @@
+/* Paleta extraída do logotipo. Trocar aqui muda a página inteira. */
+:root {
+  /* Verdes */
+  --sage: #758874; /* verde do fundo do logo */
+  --sage-deep: #586b59; /* texto branco passa em AA */
+  --forest: #2b382d; /* texto e blocos escuros */
+  --forest-soft: #4a584c; /* texto secundário */
+
+  /* Dourado do monograma */
+  --gold: #c9a24a;
+  --gold-light: #ecd08f;
+  --gold-ink: #7d5f14; /* dourado legível sobre fundo claro */
+
+  /* Neutros */
+  --paper: #f6f4ee;
+  --paper-2: #edebe2;
+  --white: #fffefb;
+  --line: rgba(43, 56, 45, 0.16);
+  --line-on-dark: rgba(255, 254, 251, 0.22);
+
+  /* Tipografia */
+  --font-display: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Jost Variable', 'Jost', 'Century Gothic', system-ui, sans-serif;
+
+  --text-xs: 0.78rem;
+  --text-sm: 0.9rem;
+  --text-base: 1.0625rem;
+  --text-lg: clamp(1.15rem, 1.05rem + 0.45vw, 1.35rem);
+  --text-xl: clamp(1.5rem, 1.3rem + 0.9vw, 2rem);
+  --text-2xl: clamp(2.1rem, 1.55rem + 2.4vw, 3.5rem);
+  --text-3xl: clamp(2.6rem, 1.7rem + 4.2vw, 5rem);
+
+  /* Espaços */
+  --gutter: clamp(1.25rem, 5vw, 3.5rem);
+  --section: clamp(4.5rem, 3rem + 7vw, 9rem);
+  --max: 76rem;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
