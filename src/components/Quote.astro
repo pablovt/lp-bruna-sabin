@@ -1,16 +1,30 @@
 ---
+import { Image } from 'astro:assets';
 import Spine from './Spine.astro';
+import fotoCitacao from '../assets/fotos/bruna-citacao.jpg';
 import { quote, site } from '../data/site';
 ---
 
 <section class="quote on-dark" aria-label="Princípio de trabalho">
-  <div class="container quote__inner">
-    <Spine class="quote__spine reveal" />
-    <blockquote class="display quote__text reveal" style="--delay: 100ms">
-      <p>{quote.lines[0]}</p>
-      <p><em>{quote.lines[1]}</em></p>
-    </blockquote>
-    <p class="quote__by reveal" style="--delay: 180ms">{site.name}</p>
+  <div class="container quote__grid">
+    <figure class="quote__photo reveal">
+      <Image
+        class="quote__img"
+        src={fotoCitacao}
+        alt=""
+        widths={[400, 800]}
+        sizes="(max-width: 860px) 18rem, 26rem"
+      />
+    </figure>
+
+    <div class="quote__inner">
+      <Spine class="quote__spine reveal" />
+      <blockquote class="display quote__text reveal" style="--delay: 100ms">
+        <p>{quote.lines[0]}</p>
+        <p><em>{quote.lines[1]}</em></p>
+      </blockquote>
+      <p class="quote__by reveal" style="--delay: 180ms">{site.name}</p>
+    </div>
   </div>
 </section>
 
@@ -19,6 +33,30 @@ import { quote, site } from '../data/site';
     background: var(--sage-deep);
     color: var(--white);
     padding-block: clamp(5rem, 3rem + 8vw, 10rem);
+  }
+
+  .quote__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: clamp(2.5rem, 6vw, 6rem);
+  }
+
+  .quote__photo {
+    width: 100%;
+    max-width: 26rem;
+    justify-self: end;
+    aspect-ratio: 4 / 5;
+    border-radius: 999px 999px 0 0;
+    background: var(--forest);
+    overflow: hidden;
+  }
+
+  .quote__photo :global(img.quote__img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
   }
 
   .quote__inner {
@@ -48,5 +86,16 @@ import { quote, site } from '../data/site';
     letter-spacing: 0.26em;
     text-transform: uppercase;
     opacity: 0.85;
+  }
+
+  @media (max-width: 860px) {
+    .quote__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .quote__photo {
+      justify-self: center;
+      max-width: 18rem;
+    }
   }
 </style>
