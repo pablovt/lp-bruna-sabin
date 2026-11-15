@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import fotoHero from '../assets/fotos/bruna-hero.jpg';
+import fotoHero from '../assets/fotos/bruna-sobre.jpg';
 import WhatsAppButton from './WhatsAppButton.astro';
 import { site, hero } from '../data/site';
 ---
@@ -131,7 +131,7 @@ import { site, hero } from '../data/site';
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 18%;
+    object-position: 50% 24%;
   }
 
   .hero__dots {
@@ -143,17 +143,28 @@ import { site, hero } from '../data/site';
   }
 
   @media (max-width: 860px) {
-    .hero__grid {
-      grid-template-columns: 1fr;
+    .hero {
+      padding-top: 1.5rem;
     }
 
+    .hero__grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    /* Foto acima do texto no mobile: visível ao carregar, sem scroll */
     .hero__figure {
+      order: -1;
       justify-self: start;
-      max-width: 17rem;
+      max-width: min(17rem, 72vw);
     }
 
     .hero__arch {
-      aspect-ratio: 1 / 1.1;
+      aspect-ratio: 1 / 1.05;
+    }
+
+    .hero__arch :global(img.hero__photo) {
+      object-position: 50% 26%;
     }
 
     .hero__dots {
