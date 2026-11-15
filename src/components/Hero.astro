@@ -1,8 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import monograma from '../assets/monograma.png';
+import fotoHero from '../assets/fotos/bruna-hero.jpg';
 import WhatsAppButton from './WhatsAppButton.astro';
-import Placeholder from './Placeholder.astro';
 import { site, hero } from '../data/site';
 ---
 
@@ -25,18 +24,17 @@ import { site, hero } from '../data/site';
       </ul>
     </div>
 
-    <!-- TODO: trocar pelo retrato da Bruna (usar <Image> dentro de .hero__arch) -->
     <figure class="hero__figure reveal" style="--delay: 200ms">
       <div class="hero__arch">
         <Image
-          class="hero__mark"
-          src={monograma}
-          alt=""
-          widths={[180, 360]}
-          sizes="180px"
+          class="hero__photo"
+          src={fotoHero}
+          alt={`${site.name}, ${site.role.toLowerCase()}`}
+          widths={[384, 768]}
+          sizes="(max-width: 860px) 17rem, 24rem"
           loading="eager"
+          fetchpriority="high"
         />
-        <span class="hero__note"><Placeholder label="Foto em edição" /></span>
       </div>
       <svg class="hero__dots" viewBox="0 0 60 220" aria-hidden="true">
         <circle cx="8" cy="8" r="3.2"></circle>
@@ -123,26 +121,17 @@ import { site, hero } from '../data/site';
 
   .hero__arch {
     position: relative;
-    display: grid;
-    place-items: center;
     aspect-ratio: 4 / 5.2;
     border-radius: 999px 999px 0 0;
     background: var(--sage);
     overflow: hidden;
   }
 
-  .hero__arch :global(img.hero__mark) {
-    width: 42%;
-    height: auto;
-  }
-
-  .hero__note {
-    position: absolute;
-    bottom: 1.25rem;
-    left: 50%;
-    translate: -50% 0;
-    color: var(--white);
-    white-space: nowrap;
+  .hero__arch :global(img.hero__photo) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 18%;
   }
 
   .hero__dots {
