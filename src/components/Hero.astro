@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import fotoHero from '../assets/fotos/bruna-sobre.jpg';
+import monograma from '../assets/monograma.png';
 import WhatsAppButton from './WhatsAppButton.astro';
 import { site, hero } from '../data/site';
 ---
@@ -30,12 +31,13 @@ import { site, hero } from '../data/site';
           class="hero__photo"
           src={fotoHero}
           alt={`${site.name}, ${site.role.toLowerCase()}`}
-          widths={[384, 768]}
-          sizes="(max-width: 860px) 17rem, 24rem"
+          widths={[384, 768, 1080]}
+          sizes="(max-width: 860px) 100vw, 24rem"
           loading="eager"
           fetchpriority="high"
         />
       </div>
+      <Image class="hero__mono" src={monograma} alt="" widths={[96]} sizes="3rem" />
       <svg class="hero__dots" viewBox="0 0 60 220" aria-hidden="true">
         <circle cx="8" cy="8" r="3.2"></circle>
         <circle cx="22" cy="30" r="3.6"></circle>
@@ -134,6 +136,10 @@ import { site, hero } from '../data/site';
     object-position: 50% 24%;
   }
 
+  .hero__figure :global(img.hero__mono) {
+    display: none;
+  }
+
   .hero__dots {
     position: absolute;
     right: -2.4rem;
@@ -142,38 +148,109 @@ import { site, hero } from '../data/site';
     fill: var(--gold);
   }
 
+  /* Mobile: foto em tela cheia como fundo do hero, texto embaixo sobre degradê */
   @media (max-width: 860px) {
     .hero {
-      padding-top: 1.5rem;
+      position: relative;
+      isolation: isolate;
+      background: var(--forest);
+      padding-block: 50svh 3rem;
     }
 
     .hero__grid {
       grid-template-columns: 1fr;
-      gap: 2rem;
     }
 
-    /* Foto acima do texto no mobile: visível ao carregar, sem scroll */
     .hero__figure {
-      order: -1;
-      justify-self: start;
-      max-width: min(17rem, 72vw);
+      position: absolute;
+      inset: 0 0 auto;
+      height: 68svh;
+      max-width: none;
+      z-index: -1;
+    }
+
+    :global(.js) .hero__figure.reveal {
+      transform: none;
+    }
+
+    .hero__figure::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(43, 56, 45, 0) 40%,
+        rgba(43, 56, 45, 0.75) 72%,
+        rgb(43, 56, 45) 100%
+      );
     }
 
     .hero__arch {
-      aspect-ratio: 1 / 1.05;
+      aspect-ratio: auto;
+      height: 100%;
+      border-radius: 0;
+      background: var(--forest);
     }
 
     .hero__arch :global(img.hero__photo) {
-      object-position: 50% 26%;
+      object-position: 62% 18%;
     }
 
     .hero__dots {
-      right: -2.2rem;
-      width: 2rem;
+      display: none;
+    }
+
+    .hero__figure :global(img.hero__mono) {
+      display: block;
+      position: absolute;
+      top: 1.5rem;
+      left: var(--gutter);
+      z-index: 1;
+      width: 2.75rem;
+      height: auto;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+    }
+
+    .hero .eyebrow {
+      display: none;
     }
 
     .hero__title {
       max-width: none;
+      margin-top: 0;
+      color: var(--white);
+    }
+
+    .hero__title em {
+      color: var(--gold-light);
+    }
+
+    .hero__lead {
+      margin-top: 1rem;
+      color: rgba(255, 254, 251, 0.85);
+    }
+
+    .hero__actions {
+      margin-top: 1.5rem;
+    }
+
+    .hero__actions :global(.btn--primary) {
+      background: var(--white);
+      color: var(--forest);
+    }
+
+    .hero__actions :global(.btn--primary:hover) {
+      background: var(--gold-light);
+    }
+
+    .hero .text-link {
+      color: var(--white);
+    }
+
+    .hero__facts {
+      margin-top: 1.75rem;
+      border-top-color: var(--line-on-dark);
+      color: rgba(255, 254, 251, 0.85);
     }
   }
 </style>

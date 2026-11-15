@@ -8,6 +8,7 @@ import { site, nav } from '../data/site';
     <a class="brand" href="#topo">
       <span class="brand__name">{site.name}</span>
       <span class="brand__role">{site.role}</span>
+      <span class="brand__crefito">{site.crefito}</span>
     </a>
 
     <nav class="nav" aria-label="Seções da página">
@@ -98,9 +99,25 @@ import { site, nav } from '../data/site';
     background-size: 100% 1px;
   }
 
+  .brand__crefito {
+    display: none;
+  }
+
   @media (max-width: 900px) {
     .nav {
       display: none;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .brand__crefito {
+      display: block;
+      margin-top: 0.15rem;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--forest-soft);
     }
   }
 
